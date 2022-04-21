@@ -1,7 +1,10 @@
 package models
 
 import (
+	"errors"
+
 	"github.com/MonduCareers/-Nwuguru-Sunday-Coding-Challenge/pkg/config"
+	"github.com/MonduCareers/-Nwuguru-Sunday-Coding-Challenge/pkg/utils"
 	"github.com/jinzhu/gorm"
 )
 
@@ -20,8 +23,20 @@ func init() {
 	db.AutoMigrate(&BankAccount{})
 }
 
-func (b *BankAccount) CreateBankAccount() *BankAccount {
+func (bc *BankAccount) BeforeCreate(tx *gorm.DB) (err error) {
+	var accountDetails BankAccount
+	db.Where("username=?", bc.Username).Find(&accountDetails)
+	if accountDetails.ID > 0 {
+		return errors.New("username already exists")
+	}
+	if !utils.IsValidEmail(bc.Email) {
+		return errors.New("invalid email address")
+	}
+	return
+}
+
+func (b *BankAccount) CreateBankAccount() (*BankAccount, error) {
 	db.NewRecord(b)
-	db.Create(&b)
-	return b
+	result := db.Create(&b)
+	return b, result.Error
 }
