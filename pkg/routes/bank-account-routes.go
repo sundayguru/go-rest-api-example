@@ -8,4 +8,5 @@ import (
 
 var RegisterBankAccountRoutes = func (router *mux.Router)  {
 	router.HandleFunc("/bank-account", controllers.CreateBankAccount).Methods("POST")
+	router.HandleFunc("/bank-account/{username}/deposit", controllers.CreateBankAccountTransactionCredit).Methods("POST")
 }
