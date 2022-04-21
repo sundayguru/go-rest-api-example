@@ -12,17 +12,17 @@ var db *gorm.DB
 
 type BankAccount struct {
 	gorm.Model
-	Name string `json:"name"`
-	Email string `json:"email"`
-	Username string `json:"username"`
+	Name string `valid:"required" json:"name"`
+	Email string `valid:"required" json:"email"`
+	Username string `valid:"required" json:"username"`
 	BankAccountTransactions []BankAccountTransaction
 }
 
 type BankAccountTransaction struct {
 	gorm.Model
 	Note string `json:"note"`
-	Amount int32 `json:"amount"`
-	Type string `json:"type"`
+	Amount int32 `valid:"required" json:"amount"`
+	Type string `valid:"required" json:"type"`
 	BankAccountID uint
 }
 
@@ -71,7 +71,7 @@ func (bt *BankAccountTransaction) CreateBankAccountTransaction(transactionType s
 		}
 		bt.Amount = bt.Amount * -1
 	}
-	
+
 	db.NewRecord(bt)
 	result := db.Create(&bt)
 	return bt, result.Error

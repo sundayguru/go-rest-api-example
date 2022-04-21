@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/jinzhu/gorm"
+	"github.com/qor/validations"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -17,7 +18,6 @@ var (
 	db_name  string = os.Getenv("MYSQL_DATABASE")
 	db_host  string = os.Getenv("DATABASE_HOST")
 	db_port  string = os.Getenv("DATABASE_PORT")
-
 )
 
 
@@ -27,6 +27,7 @@ func Connect() {
 	if  err != nil {
 		panic(err)
 	}
+	validations.RegisterCallbacks(d)
 	db = d
 }
 
