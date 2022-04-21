@@ -25,3 +25,9 @@ func CreateBankAccountTransaction(transactionType string) func(w http.ResponseWr
 		utils.JSONReponse(w, b, err)
 	}
 }
+
+func GetAccountBalance(w http.ResponseWriter, r *http.Request) {
+	params :=  mux.Vars(r)
+	balance := models.GetBankAccountBalance(params["username"])
+	utils.JSONReponse(w, struct{Balance int32 `json:"balance"`} {Balance: balance}, nil)
+}
