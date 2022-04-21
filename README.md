@@ -22,10 +22,11 @@ Creates a new account
 
 ### Inputs
 
-| Name | Descriptions
-| name | The full name of the account owner (\*Required)
-| email | The email address of the account owner (\*Required and must be a valid email address)
-| username | The username of the account owner (\*Required)
+| Name     | Descriptions                                                                          |
+| -------- | ------------------------------------------------------------------------------------- |
+| name     | The full name of the account owner (\*Required)                                       |
+| email    | The email address of the account owner (\*Required and must be a valid email address) |
+| username | The username of the account owner (\*Required)                                        |
 
 ### Sample Request
 
@@ -60,9 +61,10 @@ Deposit cash to your account
 
 ### Inputs
 
-| Name | Descriptions
-| amount | The amount you want to deposit (\*Required)
-| note | Optional note to describe the transaction
+| Name   | Descriptions                                |
+| ------ | ------------------------------------------- |
+| amount | The amount you want to deposit (\*Required) |
+| note   | Optional note to describe the transaction   |
 
 ### Sample Request
 
@@ -96,9 +98,10 @@ Withdraw cash from your account
 
 ### Inputs
 
-| Name | Descriptions
-| amount | The amount you want to deposit (\*Required)
-| note | Optional note to describe the transaction
+| Name   | Descriptions                                |
+| ------ | ------------------------------------------- |
+| amount | The amount you want to deposit (\*Required) |
+| note   | Optional note to describe the transaction   |
 
 ### Sample Request
 
