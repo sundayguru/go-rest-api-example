@@ -13,7 +13,6 @@ func  homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome Home!")
 }
 
-
 func main()  {
 	r := mux.NewRouter()
 	routes.RegisterBankAccountRoutes(r)

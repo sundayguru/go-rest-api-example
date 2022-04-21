@@ -51,15 +51,6 @@ func (b *BankAccount) CreateBankAccount() (*BankAccount, error) {
 	return b, result.Error
 }
 
-
-func (bt *BankAccountTransaction) BeforeCreate(tx *gorm.DB) (err error) {
-	if bt.Amount <= 0 {
-		return errors.New("amount must be  greater than zero")
-	}
-	
-	return
-}
-
 func (bt *BankAccountTransaction) CreateBankAccountTransaction(transactionType string, username string) (*BankAccountTransaction, error) {
 	bt.Type = transactionType
 	var accountDetails BankAccount
@@ -67,8 +58,29 @@ func (bt *BankAccountTransaction) CreateBankAccountTransaction(transactionType s
 	if accountDetails.ID == 0 {
 		return bt,  errors.New("invalid username")
 	}
+
 	bt.BankAccountID = accountDetails.ID
+	if bt.Amount <= 0 {
+		return bt, errors.New("amount must be greater than zero")
+	}
+
+	if bt.Type == utils.TransactionTypeDebit {
+		balance := GetBankAccountBalance(accountDetails.Username)
+		if balance < bt.Amount {
+			return bt, errors.New("balance insufficient")
+		}
+		bt.Amount = bt.Amount * -1
+	}
+	
 	db.NewRecord(bt)
 	result := db.Create(&bt)
 	return bt, result.Error
+}
+
+func  GetBankAccountBalance(username string) (int32) {
+	var balance int32
+	query := db.Model(&BankAccountTransaction{}).Select("sum(amount) as balance")
+	query = query.Joins("left join bank_accounts on bank_accounts.id = bank_account_transactions.bank_account_id")
+	query.Where("bank_accounts.username = ?", username).Row().Scan(&balance)
+	return balance
 }
