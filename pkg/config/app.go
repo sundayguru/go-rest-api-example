@@ -13,16 +13,16 @@ import (
 
 var (
 	db *gorm.DB
-	db_user  string = os.Getenv("MYSQL_USER")
-	db_password  string = os.Getenv("MYSQL_PASSWORD")
-	db_name  string = os.Getenv("MYSQL_DATABASE")
-	db_host  string = os.Getenv("DATABASE_HOST")
-	db_port  string = os.Getenv("DATABASE_PORT")
+	DBUser  string = os.Getenv("MYSQL_USER")
+	DBPassword  string = os.Getenv("MYSQL_PASSWORD")
+	DBName  string = os.Getenv("MYSQL_DATABASE")
+	DBHost  string = os.Getenv("DATABASE_HOST")
+	DBPort  string = os.Getenv("DATABASE_PORT")
 )
 
 
 func Connect() {
-	db_url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", db_user, db_password, db_host, db_port, db_name)
+	db_url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", DBUser, DBPassword, DBHost, DBPort, DBName)
 	d, err := gorm.Open("mysql", db_url)
 	if  err != nil {
 		panic(err)

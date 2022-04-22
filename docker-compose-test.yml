@@ -3,24 +3,20 @@ version: "3.9"
 services:
   db:
     image: mysql:8.0.28
-    container_name: db-piggybank
+    container_name: db-piggybanktest
     restart: always
-    env_file: .env
-    volumes:
-      - mysql_data:/var/lib/mysql
+    env_file: .env.test
     command: --default-authentication-plugin=mysql_native_password
 
   api:
-    container_name: api-piggybank
+    container_name: api-piggybanktest
     build:
       context: .
     ports:
       - 8080:8080
-    env_file: .env
+    env_file: .env.test
     depends_on:
       - db
     volumes:
       - .:/go/src/github.com/MonduCareers/-Nwuguru-Sunday-Coding-Challenge
     working_dir: /go/src/github.com/MonduCareers/-Nwuguru-Sunday-Coding-Challenge
-volumes:
-  mysql_data:

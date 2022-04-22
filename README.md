@@ -12,6 +12,14 @@ To execute project in your local machine, you need to have installed docker and 
 
 If everything is successful, you can access the application at http://localhost:8080
 
+# Testing
+
+To execute the tests, you need to have installed docker and docker compose in your machine.
+
+- Build the docker image: `docker-compose --f docker-compoose-test.yml build`
+- Run the project: `docker-compose --f docker-compoose-test.yml up`
+- Run the tests: `docker exec -it api-piggybanktest go test ./...`
+
 # API Documentation
 
 ## Create Account
